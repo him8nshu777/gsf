@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% block body %}
+{% if request.user.is_authenticated %}
+Welcome {{request.user}}
+        {% if request.user.userprofile.is_customer %}
+            <a href="{% url 'postMessage' %}">GO TO CHAT BOX</a>
+            <!-- welcome customer -->
+        {% else %}
+            <a href="{% url 'employee_home' %}">Go To table Page</a>
+            <!-- welcome employee -->
+        {% endif %}
+    {% else %}
+    Welcome to my website
+        {% endif %}
+    
+{% endblock body %}
+    
+    

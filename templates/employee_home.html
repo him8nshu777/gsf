@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block body %}
+<h2>Welcome Employee</h2>
+<div class="container">
+    <table class="table table-success table-striped">
+        <thead>
+            <tr>
+                <th scope="col">Sno</th>
+                <th scope="col">username</th>
+                <th scope="col">chat</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for customer in customers_with_messages %}
+            <tr>
+                <th scope="row">{{ forloop.counter }}</th>
+                <td>{{ customer.sender__user__username }}</td>
+                <td><a href="{% url 'employee_chat' customer_username=customer.sender__user__username %}">Chat</a></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock body %}

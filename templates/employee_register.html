@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+
+{% block body %}
+
+
+<div class="container">
+  <div class="row my-3">
+     <div class="col-sm-6 offset-sm-3">
+        <h3>Employee Registration</h3>
+        <hr>
+        <form action="{% url 'employee_register' %}" method="post" novalidate class="shadow p-5">
+           
+           {% if messages %}
+              
+              {% for message in messages  %}
+              <p 
+              {% if message.tags %}
+                 class="alert alert-{{message.tags}} mb-5"
+              {% endif %}
+                 >{{message}}</p>
+                 
+              {% endfor %}
+                 
+           {% endif %} 
+              
+           
+           {% csrf_token %}
+           {% for fm in form %}
+           <div class="form-group mb-3">
+              {{fm.label_tag}} {{fm}} <small class="text-danger">{{fm.errors|striptags}}</small>
+           </div>
+           {% endfor %}
+           <input type="submit" value="Submit" class="btn btn-primary">
+           <br>
+           <div class="text-center text-primary fw-bold"><small>Existing User? <a href="#"
+                    class="text-danger">Login Now</a></small></div>
+           {% if form.non_field_errors %}
+           {% for error in form.non_field_errors %}
+           <p class="alert alert-danger my-3">{{error}}</p>
+           {% endfor %}
+           {% endif %}
+        </form>
+     </div>
+  </div>
+</div>
+
+<!-- <section>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6 mx-auto">
+        <div class="card">
+          <div class="card-header text-black">
+            <h2>Register</h2>
+          </div>
+          <div class="card-body">
+            <form action="{% url 'employee_register' %}" method="POST" novalidate>
+              {% csrf_token %}
+              {% for field in form %}
+                <div class="form-group">
+                  {{ field.label_tag }}
+                  {% render_field field class="form-control" %}
+                  {% for error in field.errors %}
+                    <span style="color:red">{{ error }}</span>
+                  {% endfor %}
+                </div>
+              {% endfor %}
+              <input type="submit" value="Register" class="btn btn-block btn-primary">
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section> -->
+{% endblock body %}

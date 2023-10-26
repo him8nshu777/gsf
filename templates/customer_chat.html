@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+{% block body %}
+    <div class="container">
+        <div class="msg-header">
+            <div class="msg-header-img">
+                <img src="/static/image/customer.png" alt="">
+            </div>
+            <div class="active">
+                <h4>{{request.user}}</h4>
+            </div>
+            <div class="header-icons">
+                <div class="header-icons">
+                    <a href="{% url 'home' %}">
+                        <i class="fas fa-arrow-left"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="chat-page">
+            <div class="msg-inbox">
+                <div class="chats">
+                    <div class="msg-page">
+
+                        {% for text in texts %}
+                        
+                        {% if text.sender.user.userprofile.is_customer %}
+                        <div class="outgoing-chats">
+                            <div class="outgoing-chats-msg">
+                                <p>{{ text.content }}</p>
+                                <span class="time">{{ text.time }}</span>
+                            </div>
+                            <div class="outgoing-chats-img">
+                                <img src="/static/image/customer.png" alt="">
+                            </div>
+                        </div>
+                        {% else %}
+                        <div class="received-chats">
+                            <div class="received-chats-img">
+                                <img src="/static/image/employee.png" alt="">
+                            </div>
+                            <div class="received-msg">
+                                <div class="received-msg-inbox">
+                                    <p>{{ text.content }}</p>
+                                    <span class="time">{{ text.time }}</span>
+                                </div>
+                            </div>
+                        </div>
+                        {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            <div class="msg-bottom">
+                <form action="{% url 'postMessage' %}" method="post">
+                <div class="input-group">
+                    {% csrf_token %}
+
+                    <input type="text" name="text" class="form-control" required="True" placeholder="write message...">
+                    <button type="submit">
+                        <span class="input-group-text">
+                            <i class="fas fa-paper-plane"></i>
+                        </span>
+                    </button>    
+                </div>
+            </form>
+            </div>
+        </div>
+    </div>
+    
+{% endblock body %}
