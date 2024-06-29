@@ -1,17 +1,10 @@
-#!/bin/bash
-# Ensure Python is on the PATH
-export PATH="/usr/local/bin:$PATH"
+# Build the project
+echo "Building the project..."
+python3.9 -m pip install -r requirements.txt
 
-# Install Python dependencies using Python 3
-python -m pip install -r requirements.txt
-# Install Python dependencies
-python -m pip install -r requirements.txt
-pip install -r requirements.txt
+echo "Make Migration..."
+python3.9 manage.py makemigrations --noinput
+python3.9 manage.py migrate --noinput
 
-# Run Django migrations
-python manage.py migrate
-
-# Collect static files
-python manage.py collectstatic --noinput
-
-# Additional build tasks as needed
+echo "Collect Static..."
+python3.9 manage.py collectstatic --noinput --clear
