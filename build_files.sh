@@ -10,3 +10,4 @@ python manage.py migrate
 python manage.py collectstatic --noinput
 
 # Additional build tasks as needed
+python -m pip install -r requirements.txt
